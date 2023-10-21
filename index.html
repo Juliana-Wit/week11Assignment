@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
+
+</head>
+<body style="background-color:rgb(249, 228, 232);">
+    <br>  
+    <!--Below is the main header for the webpage with CSS styling-->
+    <u style="color: rgb(255, 255, 255);">
+        <h1 class="text-center" style="font-size:67px; color: rgb(255, 255, 255);">Tic-Tac-Toe</h1>
+    </u>
+    <br>
+    <br>
+    <!---->
+    <div class="container-fluid">    <!--Creates the main container that will hold the rest of the webpage content-->
+        <div class="col-9-lg">
+            <!--Below is the header that will change with each turn of the game-->
+            <h3 class="text-center" id="gamePlay" style="color:blueviolet">Lets Play!</h3>       
+        </div>
+        <br>
+        <br>
+        <!--This container hold the table that turns into the Tic-Tac-Toe game board-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                  <center>
+                    <!--Below is the table for the Tic-Tac-Toe game board-->
+                     <table>
+                         <tr>
+                                <td colspan="3"> <!--This allows the code to span over three columns in the table-->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="sq1 r"></button> <!--These buttons will have an icon displayed when clicked that will differ depending on the turn-->
+                                </td>
+                                <td>
+                                    <button class="sq2 r"></button>
+                                </td>
+                                <td>
+                                    <button class="sq3 r"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="sq4 r"></button>
+                                </td>
+                                <td>
+                                <button class="sq5 r"></button>
+                                </td>
+                                <td>
+                                    <button class="sq6 r"></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="sq7 r"></button>
+                                </td>
+                                <td>
+                                    <button class="sq8 r"></button>
+                                </td>
+                                <td>
+                                    <button class="sq9 r"></button>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        <!--Below is the code and styling for the reset button-->
+                        <input type="button" style="background-color: blueviolet;" class="reset btn btn-lg btn-block" value="Reset" onclick="reset()" />
+                        <!--Below is what will inform the user of the winner of the game-->
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header" id="popOne">
+                              <strong class="me-auto">It's a draw!</strong>
+                              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body" id="popOne">
+                                It's a draw! Press the reset button to play again.
+                            </div>
+                          </div>         
+                          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header" id="popTwo">
+                              <strong class="me-auto">X Won!</strong>
+                              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body" id="popTwo">
+                                X Won! Press the reset button to play again.
+                            </div>
+                          </div>
+                          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="popThree">
+                            <div class="toast-header">
+                              <strong class="me-auto">O Won!</strong>
+                              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                O Won! Press the reset button to play again.
+                            </div>
+                          </div>
+                        </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script> //This script is where the game gets all of the functionality
+        //Player turns
+       
+        let turn = 1;
+
+        $("button").click(function() {
+            if(turn == 1) {
+                $("gamePlay").text("It's X's Turn!");
+
+                $(this).addClass("fa-solid fa-x");
+                turn = 2;
+            } else {
+            $("gamePly").text("It's O's Turn!");
+            $(this).addClass("fa-regular fa-circle");
+            turn = 1;
+        }
+     });
+     //This changes the background color of the buttons when clicked
+     $("button").click(function() {
+        if($(this).hasClass("fa-solid fa-x") ||
+           $(this).hasClass("fa-regular fa-circle")) {
+            $(this).css("background-color", "lilac");
+            setTimeout(() => {
+                $(this).css("background-color", "white");
+            }, 800);
+        }
+     });
+     //This activates the popOver alert that notifies the user of the 
+     
+     const symbolX = "fa-solid fa-x";
+     const symbolO = "fa-regular fa-circle";
+     function check(symbolX,symbolO) {
+        if($(".sq1").hasClass(symbolX) && $(".sq2").hasClass(symbolX) && $(".sq3").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq4").hasClass(symbolX) && $(".sq5").hasClass(symbolX) && $(".sq6").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq7").hasClass(symbolX) && $(".sq8").hasClass(symbolX) && $(".sq9").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq1").hasClass(symbolX) && $(".sq4").hasClass(symbolX) && $(".sq7").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq2").hasClass(symbolX) && $(".sq5").hasClass(symbolX) && $(".sq8").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq3").hasClass(symbolX) && $(".sq6").hasClass(symbolX) && $(".sq9").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq1").hasClass(symbolX) && $(".sq5").hasClass(symbolX) && $(".sq9").hasClass(symbolX)) {
+            return document.getElementById("popTwo");
+        } else if($(".sq3").hasClass(symbolX) && $(".sq5").hasClass(symbolX) && $(".sq7").hasClass(symbolX)) {
+            return document.getElementById("popThree");
+        } else if($(".sq1").hasClass(symbolO) && $(".sq2").hasClass(symbolO) && $(".sq3").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq4").hasClass(symbolO) && $(".sq5").hasClass(symbolO) && $(".sq6").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq7").hasClass(symbolO) && $(".sq8").hasClass(symbolO) && $(".sq9").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq1").hasClass(symbolO) && $(".sq4").hasClass(symbolO) && $(".sq7").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq2").hasClass(symbolO) && $(".sq5").hasClass(symbolO) && $(".sq8").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq3").hasClass(symbolO) && $(".sq6").hasClass(symbolO) && $(".sq9").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq1").hasClass(symbolO) && $(".sq5").hasClass(symbolO) && $(".sq9").hasClass(symbolO)) {
+            return document.getElementById("popThree");
+        } else if($(".sq3").hasClass(symbolO) && $(".sq5").hasClass(symbolO) && $(".sq7").hasClass(symbolO)) {
+            return document.getElementById("popThree"); 
+        } else {
+            return document.getElementById("popOne");
+        }
+     }    
+     //This code allows the reset button to return the game to the very start
+     function reset() {
+        $("#gamePlay").text("Its X's Turn!");
+        $("#gamePlay").css("background-color", "transperant");
+        $(".r").removeClass("fa-regular fa-circle");
+        $(".r").removeClass("fa-solid fa-x");
+        turn = 1;
+
+
+        $(".sq1").css("color", "white");
+        $(".sq2").css("color", "white");
+        $(".sq3").css("color", "white");
+        $(".sq4").css("color", "white");
+        $(".sq5").css("color", "white");
+        $(".sq6").css("color", "white");
+        $(".sq7").css("color", "white");
+        $(".sq8").css("color", "white");        
+        $(".sq9").css("color", "white");
+     }
+
+
+    </script>
+    
+    <style>
+        button {
+            height: 90px;
+            width: 90px;
+            background-color: rgb(255, 255, 255);
+            border: 0px transparent;
+            border-radius: 30%;
+            margin: 3px;
+            padding: 5px;
+        }
+
+        .fa {
+            font-size: px;
+            color: blueviolet;
+        }
+
+        .reset {
+            padding: 10px;
+        }
+
+        .rest:hover {
+            opacity: 0.8;
+        }
+    </style>
+    
+    
+    
+    
+    <!--  <button type="button" class="btn btn-success" id="myButton" data-bs-toggle="button" aria-pressed="true"></button>  -->
+    
+    
+    
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>
